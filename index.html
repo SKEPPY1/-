@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>当たるかな?</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: 0;
+    }
+    body{
+      height: 100vh;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-image: linear-gradient(30deg, #17f1d4, #a3e293);
+    }
+    .box {
+      width: 140px;
+      height: 140px;
+      background: #fa6693;
+      cursor: pointer;
+      transition: 0.8s;
+      margin:0 8px 8px 0;
+      text-align: center;
+      line-height: 140px;
+      box-shadow: 0 32px 30px -30px rgba(53, 47, 47, 0.3);
+    }
+    .win{
+      background: #ff9e66;
+      color: rgb(0, 0, 0);
+      border: 2px solid #fc913a;
+      border-radius: 50%;
+      transform: rotate(360deg);
+      font-size: 1.3rem;
+    }
+    .lose {
+      background: #704653;
+      color: #dbe0dd;
+      transform: scale(0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+
+    const num = 5;
+
+    //これは最小0,000…１、最大0.999…1になる。ceilはrandomの最大を違う値で指定するときに効果を発揮すると思う。
+    //ceilは1始まりにしたいときに便利。
+    // const random = Math.ceil(Math.random());
+    // console.log(random);
+
+    //1.randomで以上未満の数字を1つ出す。
+    //2.それをfloorやceilで処理するからrandomの未満の効果がceilにまで行くわけではないから
+    //4.999…って出たら、floorは切り捨て…4、ceilは切り上げ…5になる。
+    const winner = Math.ceil(Math.random() * num);
+    // console.log(winner);
+
+    for(let i = 1; i <= num; i++){
+      const div = document.createElement('div');
+      div.classList.add('box');
+      div.textContent = i;
+      div.addEventListener('click',function(){
+        if (i ===winner ){
+          div.textContent = '当たり!!';
+          div.classList.add('win');
+        } else {
+          div.textContent = '残念';
+          div.classList.add('lose');
+        }
+      });
+
+      document.body.appendChild(div);
+    }
+
+
+  </script>
+</body>
+</html>
